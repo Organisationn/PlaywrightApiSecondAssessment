@@ -1,0 +1,29 @@
+{
+    "login": {
+        "username": "emilys",
+        "password": "emilyspass",
+        "expiresInMins": 30
+    },
+    "addcart": {
+        "userId": 1,
+        "products": [
+            {
+                "id": 1,
+                "quantity": 2
+            },
+            {
+                "id": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    "updatecart": {
+        "merge": true,
+        "products": [
+            {
+                "id": 3,
+                "quantity": 1
+            }
+        ]
+    }
+}
