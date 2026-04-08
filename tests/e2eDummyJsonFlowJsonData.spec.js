@@ -18,7 +18,7 @@ test.beforeEach(async({request})=>{
     apiHelper = new ApiHelper(request)
 })
 
-test('complete shopping flow', async () => {
+test('complete shopping flow with data from Json', async () => {
     //Get user profile
     const userProfileResp = await apiHelper.getUserProfile(authToken)
     const userProfileJson = await userProfileResp.json()

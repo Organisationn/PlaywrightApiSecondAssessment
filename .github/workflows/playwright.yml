@@ -8,6 +8,20 @@ jobs:
   test:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: ''
+          MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+          MYSQL_DATABASE: testdata_db_api_second
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
     steps:
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v4
@@ -17,10 +31,35 @@ jobs:
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
+      # ✅ NEW - Seed MySQL with test data
+    - name: Seed MySQL test data
+      run: |
+        mysql -h 127.0.0.1 -P 3306 -u root --password="" testdata_db_api_first <<EOF
+        CREATE TABLE IF NOT EXISTS api_test_data (
+          id INT AUTO_INCREMENT PRIMARY KEY,
+          username VARCHAR(50) NOT NULL,
+          pwd VARCHAR(50) NOT NULL,
+          expires_in_mins INT NOT NULL,
+          add_cart_user_id INT NOT NULL,
+          add_cart_product1_id INT NOT NULL,
+          add_cart_product1_qty INT NOT NULL,
+          add_cart_product2_id INT NOT NULL,
+          add_cart_product2_qty INT NOT NULL,
+          update_cart_merge BOOLEAN NOT NULL,
+          update_cart_product_id INT NOT NULL,
+          update_cart_product_qty INT NOT NULL
+        );
+        INSERT INTO api_test_data(username, pwd, expires_in_mins, add_cart_user_id, add_cart_product1_id, add_cart_product1_qty, add_cart_product2_id, add_cart_product2_qty,update_cart_merge, update_cart_product_id, update_cart_product_qty) VALUES('emilys','emilyspass',30,1,1,2,2,1,true,3,1);
+        EOF
     - name: Run Playwright tests
       run: npx playwright test
       env:
-        BASE_URL_API_SECOND: ${{secrets.BASE_URL_API_SECOND}}
+        BASE_URL_API_SECOND: ${{ secrets.BASE_URL_API_SECOND }}
+        DB_HOST: 127.0.0.1        # ✅ hardcoded - MySQL service runs on runner itself
+        DB_PORT: 3306             # ✅ hardcoded
+        DB_USER: root             # ✅ hardcoded
+        DB_PASSWORD: ''           # ✅ blank - no password set
+        DB_NAME_API_SECOND: testdata_db_api_second  # ✅ hardcoded
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
