@@ -34,7 +34,7 @@ jobs:
       # ✅ NEW - Seed MySQL with test data
     - name: Seed MySQL test data
       run: |
-        mysql -h 127.0.0.1 -P 3306 -u root --password="" testdata_db_api_first <<EOF
+        mysql -h 127.0.0.1 -P 3306 -u root --password="" testdata_db_api_second <<EOF
         CREATE TABLE IF NOT EXISTS api_test_data (
           id INT AUTO_INCREMENT PRIMARY KEY,
           username VARCHAR(50) NOT NULL,
