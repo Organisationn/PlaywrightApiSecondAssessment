@@ -1,10 +1,10 @@
 const { test, expect } = require('@playwright/test')
-const readJson = require('../utility/fileReader')
-const ApiHelper = require('../utility/apiHelper')
+const readJson = require('../utility/filereader')
+const ApiHelper = require('../utility/apihelper')
 
 let userData,apiHelper,authToken
 test.beforeAll(async ({request}) => {
-    userData = readJson('../testData/userData.json');
+    userData = readJson('../testdata/userdata.json');
     //Login
     const tempApiHelper = new ApiHelper(request)
     const loginResp = await tempApiHelper.loginUser(userData.login)
