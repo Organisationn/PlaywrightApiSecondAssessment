@@ -30,7 +30,7 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
+      run: npx playwright install --with-deps chromium
       # ✅ NEW - Seed MySQL with test data
     - name: Seed MySQL test data
       run: |
