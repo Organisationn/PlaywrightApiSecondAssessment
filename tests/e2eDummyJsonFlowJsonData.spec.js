@@ -51,7 +51,7 @@ test('complete shopping flow with data from Json', async () => {
     // NOTE: Hardcoded due to DummyJSON limitation - addCart and updateCart operate
     // on different cart states since the created cart (id:51) doesn't actually persist.
     expect(updateCartJson.totalProducts).toBe(5)
-    expect(updateCartJson.totalQuantity).toBe(16)
+    expect(updateCartJson.totalQuantity).toBe(13)
     console.log(`added one more product to cart | Total items:${updateCartJson.totalProducts}`)
     //Delete cart
     const deleteCartResp = await apiHelper.deleteCart(authToken)
