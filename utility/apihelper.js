@@ -5,7 +5,6 @@ class ApiHelper{
 
     async loginUser(payload){
         const response = await this.request.post(`${process.env.BASE_URL_API_SECOND}/auth/login`,{
-            // headers:{"Content-Type":"application/json"},
             data:payload
         })
         return response

@@ -1,82 +1,153 @@
-# Playwright API Automation – Shopping Flow
+# 🚀 Playwright API Second Assessment
 
-## 📌 Overview
-This project is an API automation framework built using Playwright with JavaScript.  
-It validates an end-to-end **shopping flow**, including authentication, product retrieval, and cart operations.
+A scalable API automation framework built using Playwright API Testing to validate an end-to-end shopping workflow using DummyJSON APIs.
 
-The framework is designed with reusable utilities, externalized test data, and clean structure for scalability.
+This framework demonstrates reusable API utilities, authentication handling, data-driven testing, database integration, and CI/CD execution.
 
 ---
 
-## 🛠 Tech Stack
-- Playwright (API Testing)
-- JavaScript (Node.js)
-- GitHub Actions (CI/CD ready)
-- dotenv (Environment management)
+## 📌 Project Overview
+
+This framework automates a complete shopping workflow using APIs:
+
+✅ User Login and token generation  
+✅ Fetch user profile details  
+✅ Fetch all products  
+✅ Fetch single product details  
+✅ Add products to cart  
+✅ Update cart details  
+✅ Delete cart validation  
+
+The framework supports:
+
+✅ Data-driven testing using JSON  
+✅ Data-driven testing using MySQL Database  
+✅ Reusable API utility methods  
+✅ Environment variable management using `.env`  
+✅ GitHub Actions CI execution  
+✅ HTML report generation  
 
 ---
 
-## 📂 Project Structure
-- `tests/` → End-to-end API test scenarios  
-- `utility/` → Reusable helper classes (API calls, file reader, db reader)  
-- `testdata/` → External JSON test data  
-- `playwright.config.js` → Playwright configuration  
-- `.env.example` → Sample environment variables  
+# 🏗️ Framework Architecture
 
----
-
-## 🔄 Test Scenario Covered
-
-### ✅ Complete Shopping Flow
-1. Login and generate authentication token  
-2. Fetch user profile  
-3. Fetch all products  
-4. Fetch single product  
-5. Add product to cart  
-6. Update cart  
-7. Delete cart  
-
----
-
-## ⚙️ Key Features
-- Token-based authentication handling  
-- API abstraction using helper class (`ApiHelper`)  
-- Externalized test data using JSON files  
-- Reusable utility functions  
-- Clean separation of test logic and API logic  
-- End-to-end scenario validation  
-
----
-
-## ⚠️ Note on API Behavior
-The project uses DummyJSON APIs, which have certain limitations:
-- Cart creation does not persist  
-- Hardcoded cart IDs are used for update scenarios  
-
-These are handled within test logic to ensure stability.
-
----
-
-## 🚀 Setup & Execution
-
-### Install dependencies
 ```bash
+PlaywrightApiSecondAssessment/
+│
+├── testdata/
+│   └── userdata.json
+
+├── tests/
+│   ├── e2eDummyJsonFlowJsonData.spec.js
+│   └── e2eDummyJsonFlowDbData.spec.js
+
+├── utility/
+│   ├── apihelper.js
+│   ├── dbhelper.js
+│   └── filereader.js
+
+├── .github/workflows/
+│   └── playwright.yml
+
+├── .env
+├── .env.example
+├── playwright.config.js
+├── package.json
+└── README.md
+
+🔥 Key Features
+
+✅ Authentication Handling
+* Login API executed in beforeAll()
+* Generates authentication token once
+* Token reused across all subsequent API requests
+
+✅ JSON Data Driven Testing
+* Test data stored in userdata.json
+* Keeps test logic separate from test data
+* Easy to maintain multiple test scenarios
+
+✅ Database Driven Testing
+* Fetches test data dynamically from MySQL database
+* Uses reusable dbhelper.js
+* Simulates real-world enterprise data validation
+
+✅ Reusable API Utilities
+apihelper.js contains reusable methods for:
+* Login API
+* Get user profile API
+* Get products API
+* Get single product API
+* Add cart API
+* Update cart API
+* Delete cart API
+
+This avoids duplicate API request code inside test files.
+
+✅ Utility Layer
+filereader.js
+* Reads external JSON test data
+dbhelper.js
+* Creates DB connection
+* Fetches test data dynamically
+
+✅ CI/CD Integration
+Framework is integrated with GitHub Actions:
+* Installs dependencies
+* Installs Playwright browsers
+* Creates MySQL service container
+* Seeds database with test data
+* Executes automation suite
+* Uploads Playwright reports as artifacts
+
+⚙️ Installation & Setup
+
+Clone repository
+git clone https://github.com/Organisationn/PlaywrightApiSecondAssessment.git
+Install dependencies
 npm install
+Install Playwright browsers
+npx playwright install
 
-## Run Tests
+▶️ Running Tests
+Run all tests
 npx playwright test
+Run JSON test
+npx playwright test tests/e2eDummyJsonFlowJsonData.spec.js
+Run DB test
+npx playwright test tests/e2eDummyJsonFlowDbData.spec.js
 
-##Environment Configuration
-Create a .env file based on .env.example:
-BASE_URL_API_SECOND=
-DB_HOST=
-DB_PORT=
-DB_USER=
-DB_PASSWORD=
-DB_NAME_API_SECOND=
+📊 Reporting
+Framework uses Playwright HTML reports:
+* API execution logs
+* Request validations
+* Assertion results
+* Failure debugging support
 
-##CI/CD
-Tests are integrated with GitHub Actions to run automatically on code push.
+Reports are uploaded automatically in GitHub Actions.
 
-##Author
-Manorama Sahoo
+🧠 Design Principles
+* Reusability
+* Scalability
+* Separation of concerns
+* Maintainability
+* Clean API design
+
+💼 Resume Highlights
+* Built Playwright API automation framework for end-to-end shopping workflow validation
+* Implemented token-based authentication handling using Playwright hooks
+* Designed reusable API utility layer for request handling
+* Implemented JSON and database-driven testing
+* Integrated framework with GitHub Actions CI pipeline
+* Automated database seeding and report artifact uploads
+
+🚀 Future Enhancements
+* Support for additional API scenarios and negative test cases
+* External test data management using Excel/CSV sources
+* Environment-based execution (QA/Staging/Production)
+
+🤝 Conclusion
+
+This project demonstrates real-world API automation framework design using Playwright with reusable utilities, authentication handling, CI/CD integration, and scalable test architecture.
+
+⭐ If you like this project, consider giving it a star.
